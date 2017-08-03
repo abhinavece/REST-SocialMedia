@@ -1,6 +1,7 @@
 package heapdev.com.SocialMedia.Services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +49,25 @@ public class MessageService {
 		} catch (Exception e) {
 			throw new CustomizedException("Exception throw !!");
 		}
+	}
+
+	public List<Message> getAllMessagesByYear(int year) {
+		List<Message> messagesForYear = new ArrayList<>();
+		Calendar cal = Calendar.getInstance();
+		for (Message msg : messageList.values()) {
+			cal.setTime(msg.getCreated());
+			if (cal.get(Calendar.YEAR) == year) {
+				messagesForYear.add(msg);
+			}
+		}
+		return messagesForYear;
+	}
+
+	public List<Message> getAllMessagesPaginated(int start, int size) {
+		List<Message> messagesPaginated = new ArrayList<>(messageList.values());
+		if (start + size > messagesPaginated.size())
+			return new ArrayList<Message>(messagesPaginated);
+		return messagesPaginated.subList(start, start + size);
 	}
 
 	public Message createMessage(Message message) {

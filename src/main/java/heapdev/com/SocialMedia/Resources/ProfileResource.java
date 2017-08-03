@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import heapdev.com.SocialMedia.Models.Profile;
 import heapdev.com.SocialMedia.Services.ProfileServices;
 
+
 @Path("profiles")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -47,7 +48,7 @@ public class ProfileResource {
 
 	@GET
 	@Path("/{username}")
-	public Response getProfile(@PathParam("username") String username, @Context UriInfo uriInfo) {
+	public Response getProfile(@PathParam("username") String username, @Context UriInfo uriInfo) throws Exception {
 
 		// URI uri = uriInfo.getAbsolutePathBuilder().build();
 		URI uri = getSelfUriForProfile(username, uriInfo);

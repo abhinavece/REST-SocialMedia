@@ -1,6 +1,8 @@
 package heapdev.com.SocialMedia.Models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Comment {
 
@@ -8,6 +10,7 @@ public class Comment {
 	private String comment;
 	private Date created;
 	private String author;
+	private List<Link> links= new ArrayList<>();
 
 	public Comment() {
 	}
@@ -50,6 +53,21 @@ public class Comment {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public List<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<Link> links) {
+		this.links = links;
+	}
+
+	public void addLink(String uri, String rel) {
+		Link link = new Link();
+		link.setUrl(uri);
+		link.setRel(rel);
+		links.add(link);
 	}
 
 }

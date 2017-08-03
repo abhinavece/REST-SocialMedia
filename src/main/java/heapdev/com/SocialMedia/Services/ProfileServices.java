@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +35,6 @@ public class ProfileServices {
 
 	}
 
-
 	public List<Profile> getAllProfiles() throws Exception {
 
 		if (profileList != null) {
@@ -43,22 +44,17 @@ public class ProfileServices {
 		}
 	}
 
-	public Profile getIndividualProfile(String username) {
+	public Profile getIndividualProfile(String username) throws Exception {
 
-		try {
-			if (profileList != null) {
-				if (profileList.containsKey(username)) {
-					logger.info("Data has been fetched successfully !!");
-					return profileList.get(username);
-				} else {
-					logger.error("There is no such username present in database");
-				}
+		if (profileList != null) {
+			if (profileList.containsKey(username)) {
+				logger.info("Data has been fetched successfully !!");
+				return profileList.get(username);
 			}
-			return null;
-		} catch (Exception e) {
-			logger.error("There is an error while while fetching data...");
-			throw new CustomizedException("There is an error while fetching profiles from database");
+		} else {
+			logger.error("There is no such username present in database");
 		}
+		throw new RuntimeException("There is an error while fetching profiles from database");
 	}
 
 	public Profile createNewProfile(Profile profile) {

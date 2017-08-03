@@ -56,4 +56,20 @@ public class CommentService {
 		}
 	}
 
+	public Comment createNewComment(Long messageId, Comment comment) {
+		try {
+			if (messageList.containsKey(messageId)) {
+				comment.setId(messageList.get(messageId).getComments().size() + 1);
+				messageList.get(messageId).getComments().put(comment.getId(), comment);
+				// Map<Long, Comment> commentMap = new HashMap<>();
+				// commentMap.put(comment.getId(), comment);
+				// messageList.get(messageId).setComments(commentMap);
+				return comment;
+			}
+			return null;
+		} catch (Exception e) {
+			throw new CustomizedException("Exception thrown !!!");
+		}
+	}
+
 }
